@@ -1,6 +1,6 @@
 import js from '@eslint/js';
-import typescript from '@typescript-eslint/eslint-plugin';
-import typescriptParser from '@typescript-eslint/parser';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsparser from '@typescript-eslint/parser';
 import playwright from 'eslint-plugin-playwright';
 import prettierConfig from 'eslint-config-prettier';
 
@@ -9,7 +9,7 @@ export default [
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
-      parser: typescriptParser,
+      parser: tsparser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
@@ -28,7 +28,7 @@ export default [
       }
     },
     plugins: {
-      '@typescript-eslint': typescript,
+      '@typescript-eslint': tseslint,
       playwright
     },
     rules: {
@@ -43,7 +43,6 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/prefer-const': 'error',
       '@typescript-eslint/no-var-requires': 'error',
       
       // General JavaScript/TypeScript rules
@@ -74,9 +73,10 @@ export default [
   },
   {
     files: ['tests/**/*.{js,ts}'],
-    ...playwright.configs['flat/recommended'],
+    plugins: {
+      playwright
+    },
     rules: {
-      ...playwright.configs['flat/recommended'].rules,
       'no-console': 'off',
       'playwright/expect-expect': 'error',
       'playwright/no-focused-test': 'error',
@@ -87,10 +87,8 @@ export default [
   },
   {
     files: ['**/*.feature'],
-    rules: {
-      // Disable certain rules for Gherkin feature files
-      'no-undef': 'off',
-      'no-unused-vars': 'off'
+    languageOptions: {
+      parser: null
     }
   },
   prettierConfig

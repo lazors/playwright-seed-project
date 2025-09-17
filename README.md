@@ -81,8 +81,8 @@ pnpm run type-check
 ```
 ├── tests/                    # Playwright tests
 │   ├── pages/               # Page Object Model classes
-│   ├── example.spec.ts      # Example Playwright tests
-│   └── page-object.spec.ts  # POM example usage
+│   ├── example.test.ts      # Example Playwright tests
+│   └── page-object.test.ts  # POM example usage
 ├── features/                # Cucumber BDD tests
 │   ├── example.feature      # Gherkin feature files
 │   ├── step-definitions/    # Step definition files
