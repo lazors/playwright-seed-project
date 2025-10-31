@@ -32,7 +32,8 @@
       "@tests/*": ["./tests/*"],
       "@features/*": ["./features/*"],
       "@utils/*": ["./utils/*"],
-      "@pages/*": ["./tests/pages/*"]
+      "@pages/*": ["./tests/pages/*"],
+      "@config/*": ["./config/*"]
     },
     "types": ["node", "@types/node"]
   },
@@ -41,6 +42,7 @@
     "features/**/*",
     "src/**/*",
     "utils/**/*",
+    "config/**/*",
     "*.ts",
     "*.js"
   ],

@@ -1,4 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import { getEnvironmentConfig } from './config/environments';
+
+const envConfig = getEnvironmentConfig();
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -9,10 +12,10 @@ export default defineConfig({
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  /* Retry configuration from environment */
+  retries: envConfig.retries,
+  /* Worker configuration from environment */
+  workers: envConfig.workers,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html'],
@@ -21,17 +24,23 @@ export default defineConfig({
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:3000',
+    /* Base URL from environment configuration */
+    baseURL: envConfig.baseUrl,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: envConfig.trace,
     
     /* Take screenshot on failure */
-    screenshot: 'only-on-failure',
+    screenshot: envConfig.screenshot,
     
     /* Record video on failure */
-    video: 'retain-on-failure'
+    video: envConfig.video,
+
+    /* Action timeout */
+    actionTimeout: envConfig.timeout / 6,
+    
+    /* Navigation timeout */
+    navigationTimeout: envConfig.timeout / 2
   },
 
   /* Configure projects for major browsers */

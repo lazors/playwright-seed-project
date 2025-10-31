@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Example Test Suite', () => {
   test.beforeEach(async ({ page }) => {
@@ -22,9 +22,9 @@ test.describe('Example Test Suite', () => {
   test('should display installation section', async ({ page }) => {
     await page.getByRole('link', { name: 'Get started' }).click();
     
-    // Check for installation section
-    const installationSection = page.getByText('Installation');
-    await expect(installationSection).toBeVisible();
+    // Check for installation section - use more specific selector to avoid strict mode violations
+    const installationHeading = page.getByRole('heading', { name: 'Installation' });
+    await expect(installationHeading).toBeVisible();
   });
 });
 
